@@ -16,7 +16,9 @@ pipeline{
         }
         stage("Build and Push Images"){
             steps{
-                sh "bash jenkins/build_images.sh"
+                docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
+                    sh "bash jenkins/build_images.sh"
+                }
             }
         }
         stage("Deploy"){
